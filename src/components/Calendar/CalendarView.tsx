@@ -146,41 +146,6 @@ const CalendarView: React.FC<CalendarViewProps> = ({
     setSelectedDate(undefined);
   }, []);
 
-  const handleMonthChange = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const newDate = new Date(currentDate);
-      newDate.setMonth(parseInt(e.target.value, 10));
-      setDate(newDate);
-    },
-    [currentDate, setDate]
-  );
-
-  const handleYearChange = useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const newDate = new Date(currentDate);
-      newDate.setFullYear(parseInt(e.target.value, 10));
-      setDate(newDate);
-    },
-    [currentDate, setDate]
-  );
-
-  const monthOptions = useMemo(
-    () =>
-      Array.from({ length: 12 }, (_, i) => ({
-        value: i.toString(),
-        label: new Date(2000, i, 1).toLocaleString('default', { month: 'long' }),
-      })),
-    []
-  );
-
-  const yearOptions = useMemo(() => {
-    const currentYear = new Date().getFullYear();
-    return Array.from({ length: 10 }, (_, i) => ({
-      value: (currentYear - 5 + i).toString(),
-      label: (currentYear - 5 + i).toString(),
-    }));
-  }, []);
-
   const handleViewSwitch = useCallback(
     (view: ViewType) => {
       switchView(view);
