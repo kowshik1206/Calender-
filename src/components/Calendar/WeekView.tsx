@@ -117,11 +117,22 @@ const WeekView = React.memo<WeekViewProps>(({
                   key={`${day.date.toISOString()}-${slot.hour}-${slot.minute}`}
                   onClick={() => handleTimeSlotClick(day.date, slot.hour, slot.minute)}
                   className={clsx(
-                    'w-full h-[30px] border-b hover:bg-gradient-to-r hover:from-primary-50 hover:to-purple-50 focus-ring transition-all duration-200 text-left hover:shadow-inner',
-                    slot.minute === 0 ? 'border-neutral-200' : 'border-neutral-100/50'
+                    'w-full h-[30px] border-b group relative transition-all duration-200 text-left',
+                    'hover:bg-gradient-to-r hover:from-primary-100 hover:to-purple-100',
+                    'dark:hover:from-primary-900/30 dark:hover:to-purple-900/30',
+                    'hover:shadow-inner hover:border-primary-300 dark:hover:border-primary-700',
+                    'focus-ring cursor-pointer',
+                    slot.minute === 0 ? 'border-neutral-200 dark:border-neutral-700' : 'border-neutral-100/50 dark:border-neutral-800/50'
                   )}
-                  aria-label={`${formatDate(day.date, 'MMM d')} at ${slot.label}`}
-                />
+                  aria-label={`Create event on ${formatDate(day.date, 'MMM d')} at ${slot.label}`}
+                  title={`Click to create event at ${slot.label}`}
+                >
+                  <span className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    <svg className="w-4 h-4 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                  </span>
+                </button>
               ))}
 
               {/* Events overlay */}

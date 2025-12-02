@@ -48,16 +48,27 @@ const CalendarCell = React.memo<CalendarCellProps>(({
       ref={cellRef}
       role="button"
       tabIndex={0}
-      aria-label={`${day.date.toLocaleDateString()}, ${day.events.length} events`}
+      aria-label={`${day.date.toLocaleDateString()}, ${day.events.length} events. Click to create new event.`}
       className={clsx(
-        'min-h-[120px] border border-neutral-200/50 p-3 cursor-pointer transition-all duration-300',
-        'hover:bg-gradient-to-br hover:from-primary-50 hover:to-purple-50 hover:shadow-lg hover:scale-[1.02] focus-ring',
-        day.isCurrentMonth ? 'bg-white' : 'bg-neutral-50/50',
-        day.isToday && 'ring-2 ring-primary-500 ring-inset bg-gradient-to-br from-blue-50 to-indigo-50 shadow-md'
+        'min-h-[120px] border border-neutral-200/50 dark:border-neutral-700/50 p-3 cursor-pointer transition-all duration-300 group relative',
+        'hover:bg-gradient-to-br hover:from-primary-100 hover:to-purple-100',
+        'dark:hover:from-primary-900/30 dark:hover:to-purple-900/30',
+        'hover:shadow-xl hover:scale-[1.02] hover:border-primary-300 dark:hover:border-primary-700',
+        'focus-ring',
+        day.isCurrentMonth ? 'bg-white dark:bg-neutral-900' : 'bg-neutral-50/50 dark:bg-neutral-800/50',
+        day.isToday && 'ring-2 ring-primary-500 ring-inset bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950 dark:to-indigo-950 shadow-md'
       )}
       onClick={handleCellClick}
       onKeyDown={handleKeyDown}
+      title="Click to create a new event"
     >
+      {/* Hover indicator */}
+      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <svg className="w-5 h-5 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+        </svg>
+      </div>
+      
       <div className="flex items-center justify-between mb-1">
         <span
           className={clsx(
